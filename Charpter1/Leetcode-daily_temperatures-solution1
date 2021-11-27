@@ -1,0 +1,19 @@
+class Solution {
+public:
+    vector<int> dailyTemperatures(vector<int>& temperatures) {
+        int n = temperatures.size();
+        vector<int> res(n), next(101, INT_MAX);
+
+        for(int i = n-1; i >= 0; i--){
+            int nextIndex = INT_MAX;
+            for(int j = temperatures[i] + 1; j <= 100; j++){
+                nextIndex = min(nextIndex, next[j]); //find the minimum nextIndex which bigger than temperatures[i]
+            }
+            if(nextIndex != INT_MAX)
+                res[i] = nextIndex - i;
+            next[temperatures[i]] = i; //update the next[] vector
+        }
+
+        return res;
+    }
+};
