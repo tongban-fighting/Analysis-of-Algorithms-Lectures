@@ -18,13 +18,13 @@ int main(){
 			cin >> costs[i];
 			avg += costs[i];
 		}
-		avg = (int)(avg * 100 / n) / 100.00;
+		avg /= n;
 
 		for(int i = 0; i < n; i++){
 			if(costs[i] > avg)
-				resH += costs[i] - avg;
+				resH +=(int)((costs[i] - avg) * 100) / 100.00;
 			else
-				resL += avg - costs[i];
+				resL +=(int)((avg - costs[i]) * 100) / 100.00;
 		}
 		
 		cout.setf(ios::fixed);
