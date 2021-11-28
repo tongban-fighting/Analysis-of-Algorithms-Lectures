@@ -1,0 +1,30 @@
+int hackerlandRadioTransmitters(vector<int> x, int k) {
+    if(x.size() == 1)
+        return 1;
+        
+    //sorting process
+    sort(x.begin(),x.end(),[](int m,int n){return m < n;});
+    
+    //using sorted input
+    bool covered = false;
+    int count = 0, center, temp;
+    
+    for(int i = 0; i < x.size(); i++){
+        if(!covered){
+            temp = x[i] + k;
+            center = x[i];
+            covered = true;
+            count++;
+        }
+        else {
+            if(x[i] <= temp)
+                center = x[i];
+            else if(x[i] > center + k){
+                covered = false;
+                i--;       
+            }
+        }
+    }
+    
+    return count;
+}
