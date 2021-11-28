@@ -1,0 +1,19 @@
+vector<int> rotateLeft(int d, vector<int> arr) {
+    int n = arr.size();
+    vector<int> res;
+    
+    //deal with d
+    if(n == 0)
+        return arr;
+    if(d > n)
+        d = d % n;
+    if(d == 0 || d == n)
+        return arr;
+    
+    for(int i = d; i < n; i++)
+        res.push_back(arr[i]);
+    for(int j = 0; j < d; j++)
+        res.push_back(arr[j]);
+        
+    return res;
+}
