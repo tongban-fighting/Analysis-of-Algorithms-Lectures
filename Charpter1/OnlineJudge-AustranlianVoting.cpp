@@ -54,35 +54,49 @@ vector<int> select(int num_candi, vector<vector<int> > votes){
 		int minTickets = INT_MAX;
 		bool erased = false;
 		vector<int> minCandi;
+		int num_zero = 0;
 			
 		for(int n = 1; n <= num_candi; n++){
 			if(num_ticketsofCandi[n] > criterion){
 				res.push_back(n);
 				return res;
 			}
-			if(first_through){
-				if(num_ticketsofCandi[n] < minTickets){
-					minTickets = num_ticketsofCandi[n];
-					minCandi.clear();
-					minCandi.push_back(n);
-				}
-				else if(num_ticketsofCandi[n] == minTickets)
-					minCandi.push_back(n);
+
+			if(num_ticketsofCandi[n] == 0){
+				num_zero++;
+				if(first_through)
+					erased_candi.push_back(n);
 			}
-			else
-			{
-				if(num_ticketsofCandi[n] && num_ticketsofCandi[n] < minTickets){
-					minTickets = num_ticketsofCandi[n];
-					minCandi.clear();
-					minCandi.push_back(n);
-				}
-				else if(num_ticketsofCandi[n] == minTickets)
-					minCandi.push_back(n);
+			else if(num_ticketsofCandi[n] < minTickets){
+				minTickets = num_ticketsofCandi[n];
+				minCandi.clear();
+				minCandi.push_back(n);
 			}
+			else if(num_ticketsofCandi[n] == minTickets)
+				minCandi.push_back(n);
 		}
+		
+		if(votes.size() % (num_candi-num_zero) == 0 && (votes.size() / (num_candi-num_zero) == minTickets)){
+			for(int n = 1; n <= num_candi; n++)
+				if(num_ticketsofCandi[n] != 0)
+					res.push_back(n);
+			return res;	
+		}
+		//for test
+		//for(int i = 0; i < minCandi.size();i++)
+		//	cout << minCandi[i] << ' ';
+		//cout <<endl<< minTickets <<endl;
+		//test end
+
 		first_through = false;
 		for(int i = 0; i < minCandi.size(); i++)
 			erased_candi.push_back(minCandi[i]);
+		
+		//for test
+		//for(int i = 0; i < erased_candi.size(); i++)
+		//	cout << erased_candi[i]<< ' ';
+		//cout <<endl;
+		//test end
 
 		for(int m = 0; m < votes.size(); m++){
 			for(int k = 0; k < erased_candi.size(); k++){
