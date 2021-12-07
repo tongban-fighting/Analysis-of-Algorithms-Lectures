@@ -1,0 +1,30 @@
+class Solution {
+public:
+    string removeKdigits(string num, int k) {
+        if(num.size() == k)
+            return "0";
+
+        vector<char> res;
+        for(auto & digit : num){
+            while(res.size() > 0 && res.back() > digit && k){
+                res.pop_back();
+                k--;
+            }
+            res.push_back(digit);
+        }
+
+        for(;k > 0; k--)
+            res.pop_back();
+
+        bool isLeadingZero = true;
+        string ans = "";
+        for(auto & digits : res){
+            if(isLeadingZero && digits == '0')
+                continue;
+            isLeadingZero = false;
+            ans += digits;
+        }
+
+        return ans == "" ? "0":ans;
+    }
+};
