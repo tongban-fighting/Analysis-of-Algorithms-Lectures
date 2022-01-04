@@ -1,0 +1,19 @@
+typedef int[n] myDictionary;
+
+void init(myDictionary S){
+	for(int i = 0; i < n; i++){
+		S[i] = 0;
+	}
+}
+
+int search(myDictionary S, int key){
+	return S[key];	
+}
+
+void insertion(myDictionary* S, int key){
+	S[key] = key;
+}
+
+void deletion(myDictionary* S, int key){
+	S[key] = 0;
+}
