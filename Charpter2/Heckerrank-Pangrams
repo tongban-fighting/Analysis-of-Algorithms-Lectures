@@ -1,0 +1,21 @@
+string pangrams(string s) {
+    vector<int> count(26,0);
+    
+    for(auto& alphabeta : s){
+        if(alphabeta == ' ')
+            continue;
+        char lower_alphabeta = (char) tolower(alphabeta);
+        count[(int)(lower_alphabeta - 'a')]++;
+    }
+    
+    bool pangram = true;
+    for(int i = 0; i < 26; i++)
+        if(count[i] == 0){
+            pangram = false;
+            break;
+        }
+    if(pangram)
+        return "pangram";
+    else
+        return "not pangram";
+}
